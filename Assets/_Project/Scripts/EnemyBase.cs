@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,10 @@ public class EnemyBase : MonoBehaviour
 {
     [SerializeField] private GameObject _target;
     [SerializeField] private NavMeshAgent _agentComponent;
+    
+    public delegate void GObjDelegate(GameObject value);
+    public event GObjDelegate onDeath;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -37,11 +42,15 @@ public class EnemyBase : MonoBehaviour
         StartCoroutine(DestinationUpdate(updateTime));
     }
 
-    /// <summary>
-    /// OnCollisionEnter is called when this collider/rigidbody has begun
-    /// touching another rigidbody/collider.
-    /// </summary>
-    /// <param name="other">The Collision data associated with this collision.</param>
+
+    private void OnMouseDown()
+    {
+        if (gameObject)
+        {
+            onDeath(gameObject);
+        }
+    }
+
     void OnCollisionEnter(Collision other)
     {
         if(other.gameObject.CompareTag("Player"))
