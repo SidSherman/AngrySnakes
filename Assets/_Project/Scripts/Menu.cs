@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,7 +20,25 @@ public class Menu : MonoBehaviour
 
     //Panels
     [SerializeField] protected GameObject _menuPanel;
+
+    private void Start()
+    {
+      
+        if (!_audioSource)
+        {
+            _audioSource = SoundManager.SoundManagerInstance.DefaultSource;
+        }
+        if (!_listener)
+        {
+            _listener = SoundManager.SoundManagerInstance.DefaultListener;
+        }
+        if (!_sceneManager)
+        {
+            _sceneManager = SceneLoader.SceneLoaderInstance;
+        }
+    }
     
+
     public void SoundOnOff()
     {
         if(_listener.enabled == true)

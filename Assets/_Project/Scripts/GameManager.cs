@@ -12,7 +12,8 @@ public class GameManager : MonoBehaviour
     //private PlayerControlls _input;
     private int _gameState = 2;
     private static int _score = 0;
-
+    private static int _recordScore = 0;
+    
     private int PAUSE_STATE = 1;
     private int GAME_STATE = 2;
     private int CUTSCENE_STATE = 3;
@@ -20,9 +21,24 @@ public class GameManager : MonoBehaviour
     public static int Score { get => _score; set => _score = value; }
 
     public static GameManager GameManagerInstance;
+
+    private void Awake()
+    {
+        GameManagerInstance = this;
+    }
+
     private void Start()
     {
-
+        _score = 0;
+        _recordScore = 0;
+        
+        PlayerPrefs.DeleteKey("Record");
+        if (PlayerPrefs.HasKey("Record"))
+        {
+            _recordScore = PlayerPrefs.GetInt("Record");
+        }
+        _gameMenu.UpdateRecord(_recordScore);
+        _gameMenu.UpdateCurrentScore(_score);
         _gameState = GAME_STATE;
         Time.timeScale = 1f;
     }
@@ -80,25 +96,35 @@ public class GameManager : MonoBehaviour
         _soundManager.PlaySound(_loseSound);
     }
 
-    public void Win()
+    /*public void Win()
     {
         Time.timeScale = 0f;
         if(_gameMenu)
             _gameMenu.FinishGame();
         ClearStaticValues();
         _soundManager.PlaySound(_winSound);
-    }
+    }*/
     
     public void ClearStaticValues()
     {
+       PlayerPrefs.SetInt("Record", _recordScore);
         _score = 0;
     }
     
     public void UpdateScore(int value)
     {
         _score +=value;
+        
         if(_gameMenu)
-            _gameMenu.UpdateRecord(_score);
+            _gameMenu.UpdateCurrentScore(_score);
+        
+        if (_recordScore < _score)
+        {
+            _recordScore = _score;
+            _gameMenu.UpdateRecord(_recordScore);
+        }
+            
+       
     }
     
     public void UnsetCameraFollowObject()

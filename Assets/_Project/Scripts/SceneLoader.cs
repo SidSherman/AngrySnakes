@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
+    public static SceneLoader SceneLoaderInstance;
     public void LoadSceneByIndex(int index)
     {
         SceneManager.LoadScene(index);

@@ -9,11 +9,15 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioSource _defaultMusicSource;
     [SerializeField] private AudioListener _defaultListener;
 
-    static public SoundManager instance;
+    public AudioSource DefaultSource => _defaultSource;
+    public AudioSource DefaultMusicSource => _defaultMusicSource;
+    public AudioListener DefaultListener => _defaultListener;
+
+    static public SoundManager SoundManagerInstance;
 
     private void Awake()
     {
-        instance = this;
+        SoundManagerInstance = this;
     }
 
     public void PlayStopMusic(bool value)
@@ -31,7 +35,8 @@ public class SoundManager : MonoBehaviour
     
     public void PlaySound(AudioClip clip)
     {
-        _defaultSource.PlayOneShot(clip);
+        if(clip)
+            _defaultSource.PlayOneShot(clip);
     }
     
     public void PlaySound(AudioClip clip, AudioSource source)

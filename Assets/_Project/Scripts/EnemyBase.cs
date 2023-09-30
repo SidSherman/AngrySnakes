@@ -8,54 +8,69 @@ public class EnemyBase : MonoBehaviour
 {
     [SerializeField] private GameObject _target;
     [SerializeField] private NavMeshAgent _agentComponent;
-    
+    [SerializeField] private GameManager _gameManager;
+
     public delegate void GObjDelegate(GameObject value);
+
+    public delegate void VoidDelegate();
+
     public event GObjDelegate onDeath;
-    
+    public event VoidDelegate OnPlayerKill;
+
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (!_gameManager)
+            _gameManager = GameManager.GameManagerInstance;
+
         StartCoroutine(DestinationUpdate(1.0f));
     }
 
 
     IEnumerator DestinationUpdate(float updateTime)
     {
-        
-        if(!_agentComponent)
+
+        if (!_agentComponent)
         {
             _agentComponent = GetComponent<NavMeshAgent>();
         }
-        if(!_target)
+
+        if (!_target)
         {
             _target = GameObject.FindGameObjectWithTag("Player");
         }
 
-        if(_target && _agentComponent)
+        if (_target && _agentComponent)
         {
             _agentComponent.destination = _target.transform.position;
         }
-        
+
         yield return new WaitForSeconds(updateTime);
-        
+
         StartCoroutine(DestinationUpdate(updateTime));
     }
 
-
-    private void OnMouseDown()
+    public void Death()
     {
+        Debug.Log("Death");
         if (gameObject)
         {
-            onDeath(gameObject);
-        }
+            if (onDeath != null)
+                onDeath(gameObject);
+        } 
     }
 
-    void OnCollisionEnter(Collision other)
+  
+
+
+private void OnTriggerEnter(Collider other)
     {
+        Debug.Log(other.gameObject);
         if(other.gameObject.CompareTag("Player"))
         {
-            Application.Quit();
+            if(OnPlayerKill != null) 
+                OnPlayerKill();
         }
     }
 }
