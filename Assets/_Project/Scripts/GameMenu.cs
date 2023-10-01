@@ -96,9 +96,9 @@ public class GameMenu : Menu
         
     }
 
-    public void ReturnToMainMenu(string sceneName = "MainMenu")
+    public void ReturnToMainMenu(int sceneIndex = 0)
     {
-        _sceneManager.LoadSceneByName(sceneName);
+        _sceneManager.LoadSceneByIndex(sceneIndex);
     }
     public void UpdateMessage(string value)
     {
