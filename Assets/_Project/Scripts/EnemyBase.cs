@@ -3,12 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 public class EnemyBase : MonoBehaviour
 {
     [SerializeField] private GameObject _target;
     [SerializeField] private NavMeshAgent _agentComponent;
     [SerializeField] private GameManager _gameManager;
+    [SerializeField] private List<AudioClip> _deathSounds;
 
     public delegate void GObjDelegate(GameObject value);
 
@@ -58,7 +60,12 @@ public class EnemyBase : MonoBehaviour
         {
             if (onDeath != null)
                 onDeath(gameObject);
-        } 
+        }
+
+        if (SoundManager.SoundManagerInstance)
+        {
+            SoundManager.SoundManagerInstance.PlaySound(_deathSounds[Random.Range(0,_deathSounds.Count-1)]);
+        }
     }
 
   
