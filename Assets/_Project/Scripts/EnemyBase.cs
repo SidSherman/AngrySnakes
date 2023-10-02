@@ -26,6 +26,7 @@ public class EnemyBase : MonoBehaviour
         if (!_gameManager)
             _gameManager = GameManager.GameManagerInstance;
 
+        
         StartCoroutine(DestinationUpdate(1.0f));
     }
 
@@ -62,9 +63,9 @@ public class EnemyBase : MonoBehaviour
                 onDeath(gameObject);
         }
 
-        if (SoundManager.SoundManagerInstance)
+        if (_gameManager.SoundManager)
         {
-            SoundManager.SoundManagerInstance.PlaySound(_deathSounds[Random.Range(0,_deathSounds.Count-1)]);
+            _gameManager.SoundManager.PlaySound(_deathSounds[Random.Range(0,_deathSounds.Count-1)]);
         }
     }
 

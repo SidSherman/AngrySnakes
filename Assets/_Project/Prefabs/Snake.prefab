@@ -74,6 +74,19 @@ MonoBehaviour:
   _target: {fileID: 0}
   _agentComponent: {fileID: 7880128207884284654}
   _gameManager: {fileID: 0}
+  _deathSounds:
+  - {fileID: 8300000, guid: d4b6630cfdca0334fb64e1c52a4649ea, type: 3}
+  - {fileID: 8300000, guid: b6711332793d3fb448fe3eb42330098d, type: 3}
+  - {fileID: 8300000, guid: 5a205f687650c4449b97d9d2ff7037bb, type: 3}
+  - {fileID: 8300000, guid: f56868c854b6d05419fd7beca648dbf5, type: 3}
+  - {fileID: 8300000, guid: 5f0c90a1f747df244aded29fa689d50e, type: 3}
+  - {fileID: 8300000, guid: 6418ee8f30bb9d643aff8860e4befb73, type: 3}
+  - {fileID: 8300000, guid: 9178163a88096324186fbab07deaef5e, type: 3}
+  - {fileID: 8300000, guid: b969a78868720d0419173be667751e86, type: 3}
+  - {fileID: 8300000, guid: a481888e226453743b9676c0d0a0cbb5, type: 3}
+  - {fileID: 8300000, guid: 69d8bccea0365ad42961f1fea7259e5a, type: 3}
+  - {fileID: 8300000, guid: 0930a97e214b59246a0063d8e5cff935, type: 3}
+  - {fileID: 8300000, guid: 0d5449cd6dd8c5d4491c8202409c95ef, type: 3}
 --- !u!23 &-805633179038732401
 MeshRenderer:
   m_ObjectHideFlags: 0

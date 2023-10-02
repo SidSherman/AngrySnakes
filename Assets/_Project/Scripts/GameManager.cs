@@ -7,6 +7,9 @@ public class GameManager : MonoBehaviour
    
     [SerializeField] private GameMenu _gameMenu;
     [SerializeField] private SoundManager _soundManager;
+
+    public SoundManager SoundManager => _soundManager;
+
     [SerializeField] private AudioClip _winSound;
     [SerializeField] private AudioClip _loseSound;
     //private PlayerControlls _input;
@@ -25,6 +28,12 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         GameManagerInstance = this;
+        
+        if (!_soundManager)
+        {
+            _soundManager = SoundManager.SoundManagerInstance;
+        }
+        
     }
 
     private void Start()
