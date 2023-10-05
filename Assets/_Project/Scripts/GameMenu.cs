@@ -49,7 +49,7 @@ public class GameMenu : Menu
     public void RestartGame()
     {
         _sceneManager.ReloadScene();
-
+        
     }
     
     public void PauseGame()
@@ -64,22 +64,6 @@ public class GameMenu : Menu
         _gamePanel.SetActive(true);
         _menuPanel.SetActive(false);
     }
-    
-    /*public void FinishGame()
-    {
-        Time.timeScale = 0f;
-        if (!_finishPanel)
-            return;
-        
-        _finishPanel.SetActive(true);
-        
-        if (!_finishScore)
-            return;
-
-
-        _finishScore.text = $"Ваш счёт: {GameManager.Score}\n змеек";
-
-    }*/
     
     public void LoseGame()
     {
@@ -98,6 +82,7 @@ public class GameMenu : Menu
 
     public void ReturnToMainMenu(int sceneIndex = 0)
     {
+        Progress.ProgressInstance.SavePlayerInfo();
         _sceneManager.LoadSceneByIndex(sceneIndex);
     }
     public void UpdateMessage(string value)
@@ -109,14 +94,14 @@ public class GameMenu : Menu
     public void UpdateRecord(int value)
     {
         if(_recordTable)
-            _recordTable.text = $"{value} змеек";
+            _recordTable.text = $"{value}";
     }
     
     public void UpdateCurrentScore(int value)
     {
         if (!_scoreValue)
             return;
-        _scoreValue.text = $"{value} змеек";
+        _scoreValue.text = $"{value}";
     }
     
     public void UpdateHealth(float value)

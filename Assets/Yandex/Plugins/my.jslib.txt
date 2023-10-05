@@ -1,0 +1,35 @@
+mergeInto(LibraryManager.library, {
+
+  	 RateGame: function () {
+      
+       ysdk.feedback.canReview()
+            .then(({ value, reason }) => {
+                if (value) {
+                    ysdk.feedback.requestReview()
+                        .then(({ feedbackSent }) => {
+                            console.log(feedbackSent);
+                        })
+                } else {
+                    console.log(reason)
+                }
+            })  
+      },
+      
+     CollectPlayerData: function () {
+      
+          player.getData().then(_date =>
+          {
+            const myJSON = JSON.stringify(_date);
+            myGameInstance.SendMessage("Progress","SetPlayerInfo", myJSON);
+          });
+          
+      },
+      
+      SavePlayerData: function (date) {
+     
+        var dateString = UTF8ToString(date);
+        var myobj = JSON.parse(dateString);
+        player.setData(myobj);
+       },
+      
+  });
