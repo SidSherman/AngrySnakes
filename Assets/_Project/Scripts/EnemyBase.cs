@@ -11,6 +11,10 @@ public class EnemyBase : MonoBehaviour
     [SerializeField] private NavMeshAgent _agentComponent;
     [SerializeField] private GameManager _gameManager;
     [SerializeField] private List<AudioClip> _deathSounds;
+    [SerializeField] private ParticleSystem _deathParticle;
+    [SerializeField] private bool _isDead = false;
+    [SerializeField] private GameObject _mesh;
+    public bool IsDead => _isDead;
 
     public delegate void GObjDelegate(GameObject value);
 
@@ -46,6 +50,7 @@ public class EnemyBase : MonoBehaviour
 
         if (_target && _agentComponent)
         {
+            
             _agentComponent.destination = _target.transform.position;
         }
 
@@ -56,17 +61,28 @@ public class EnemyBase : MonoBehaviour
 
     public void Death()
     {
-        Debug.Log("Death");
+       // Debug.Log("Death");
         if (gameObject)
         {
             if (onDeath != null)
                 onDeath(gameObject);
         }
-
+        
         if (_gameManager.SoundManager)
         {
             _gameManager.SoundManager.PlaySound(_deathSounds[Random.Range(0,_deathSounds.Count-1)]);
         }
+
+        _isDead = true;
+        if(_agentComponent)
+            _agentComponent.isStopped = true;
+
+       
+        if(_deathParticle)
+            _deathParticle.Play();
+
+        if(_mesh)
+            _mesh.SetActive(false);
     }
 
   
@@ -74,7 +90,7 @@ public class EnemyBase : MonoBehaviour
 
 private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.gameObject);
+       // Debug.Log(other.gameObject);
         if(other.gameObject.CompareTag("Player"))
         {
             if(OnPlayerKill != null) 

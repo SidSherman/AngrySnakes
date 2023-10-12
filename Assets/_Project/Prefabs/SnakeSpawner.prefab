@@ -31,7 +31,7 @@ Transform:
   m_Children:
   - {fileID: 8215926517069310637}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8248469657022038568
 MonoBehaviour:
@@ -50,9 +50,10 @@ MonoBehaviour:
   - {fileID: 3101187125660820659, guid: 77cbd7f3fa1add24d998235a2e44401c, type: 3}
   - {fileID: 3101187125660820659, guid: f8ecf97a686c8a440990055e313cc6a9, type: 3}
   _spawnedGameObject: []
-  _timeBetweenSpawn: 7
+  _timeBetweenSpawn: 5
+  _startedtimeBetweenSpawn: 5
   _timeBetweenAcceleration: 5
-  _accelerationDelta: 0.1
+  _accelerationDelta: 0.07
   _spawnCount: 1
   _gameManager: {fileID: 0}
 --- !u!1001 &8470827651213135174

@@ -8,7 +8,7 @@ using UnityEngine;
 public class Progress : MonoBehaviour
 {
     [SerializeField] private List<Levels> _levelsInfo;
-    private PlayerInfo _playerInfo;
+    [SerializeField] private PlayerInfo _playerInfo;
 
     public PlayerInfo PlayerInfoRef
     {
@@ -32,15 +32,22 @@ public class Progress : MonoBehaviour
     private void Awake()
     {
         _playerInfo = new PlayerInfo();
-        ProgressInstance = this;
         DontDestroyOnLoad(this.gameObject);
 
+        
+        if (ProgressInstance == null) {
+            ProgressInstance = this;
+        } else {
+            Destroy(gameObject);
+        }
+        
         SetLevel(0);
         SetScore(0);
     #if UNITY_WEBGL____ 
        CollectPlayerData();
     #endif 
     }
+    
 
     public void SetScore(int score)
     {
@@ -75,6 +82,7 @@ public class Progress : MonoBehaviour
 #endif 
     }
     
+    [Serializable]
     public class PlayerInfo
     {
         public int Level;

@@ -146,7 +146,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 132a2a2d3d6d74140a3960e901d12b38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _linkedImage: {fileID: 4596984117675239198}
+  _linkedImage: {fileID: 0}
+  _previewImage: {fileID: 4596984117675239198}
   _lockedsprite: {fileID: 21300000, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
   _unlockedsprite: {fileID: 21300012, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
   _menu: {fileID: 0}

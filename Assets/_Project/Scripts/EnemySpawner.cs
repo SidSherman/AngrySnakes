@@ -8,6 +8,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private List<GameObject> _gameObjectToSpawn;
     [SerializeField] private List<GameObject> _spawnedGameObject;
     [SerializeField] private float _timeBetweenSpawn;
+    [SerializeField] private float _startedtimeBetweenSpawn;
     [SerializeField] private float _timeBetweenAcceleration = 10.0f;
     [SerializeField] private float _accelerationDelta = 0.1f;
     [SerializeField] private float _spawnCount;
@@ -15,7 +16,7 @@ public class EnemySpawner : MonoBehaviour
     
     void Start()
     {
-       
+        _timeBetweenSpawn = _startedtimeBetweenSpawn;
         if (!_gameManager)
         {
             _gameManager = GameManager.GameManagerInstance;
@@ -24,13 +25,35 @@ public class EnemySpawner : MonoBehaviour
         StartCoroutine(SpawnTimeDecreaser(_timeBetweenAcceleration));
     }
 
+    public void SlowDownSpawn(float value)
+    {;
+        Mathf.Clamp(_timeBetweenSpawn + value, 0.1f, _startedtimeBetweenSpawn);
+
+    }
     void RemoveFromObjects(GameObject removingGameObject)
     {
         _gameManager.UpdateScore(1);
         _spawnedGameObject.Remove(removingGameObject);
-        Destroy(removingGameObject);
+
+        StartCoroutine(DestroyDelay(3.0f, removingGameObject));
+        
     }
 
+    public void ClearEnemies()
+    {
+        foreach (var snake in _spawnedGameObject)
+        {
+            _spawnedGameObject.Remove(snake);
+            Destroy(snake);
+        }
+    }
+    
+    IEnumerator DestroyDelay(float value,GameObject removingGameObject )
+    {
+        yield return new WaitForSeconds(value);
+        Destroy(removingGameObject);
+    }
+    
     IEnumerator SpawnDelay(float value)
     {
         yield return new WaitForSeconds(value);
@@ -47,6 +70,7 @@ public class EnemySpawner : MonoBehaviour
         StartCoroutine(SpawnTimeDecreaser(value));
     }
 
+    
     IEnumerator SpawnObject()
     {
         for (int i = 0; i < _spawnCount; i++)
